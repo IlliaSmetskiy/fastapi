@@ -49,8 +49,6 @@ mdurl==0.1.2
 mido==1.3.3
 multidict==6.7.0
 multithreading==0.2.0
-mysql==0.0.3
-mysqlclient==2.2.7
 mysql-connector-python==9.5.0
 numpy==2.3.5
 oauthlib==3.3.1
