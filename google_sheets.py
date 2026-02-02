@@ -2,10 +2,12 @@ import gspread
 from google.oauth2.service_account import Credentials
 from config import SPREADSHEET_NAME, GOOGLE_CREDENTIALS_JSON, worksheet_names, NEW_STATE
 import json
-
+import os
+from dotenv import load_dotenv
+load_dotenv() 
 
 def authenticate_google_sheets():
-    creds = json.loads(os.environ["GOOGLE_CREDENTIALS_JSON"])
+    creds = json.loads(os.getenv("GOOGLE_CREDENTIALS_JSON"))
     credentials = Credentials.from_service_account_info(
         creds,
         scopes=["https://www.googleapis.com/auth/spreadsheets.readonly"]
