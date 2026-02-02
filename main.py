@@ -101,9 +101,7 @@ async def telegram_webhook(update: dict):
     await dp.feed_update(bot, telegram_update)
     return {"ok": True}
 
-@app.post("/send-invite")
-async def send_invite(request: Request):
-    data = await request.json()
+async def send_invite(data):
     expire_ts = data["expire_ts"]
     telegram_id = data["telegram_id"]
     invite = await bot.create_chat_invite_link( chat_id=CHANNEL_ID,
@@ -117,9 +115,13 @@ async def send_invite(request: Request):
     logging.info("Інвайт посилання надіслано")
     return ({"status": "sent", "invite_link": url})
 
-@app.post("/text-user")
-async def text_user(request: Request):
+@app.post("/send-invite")
+async def webhook_send_invite(request: Request):
     data = await request.json()
+    asyncio.create_task(send_invite(data))
+    return {"ok": 200}
+
+async def text_user(data):
     mode = data["mode"]
     telegram_id = data["telegram_id"]
     conn = get_connection()
@@ -127,9 +129,13 @@ async def text_user(request: Request):
     message = MESSAGES[mode][lang]
     await bot.send_message(chat_id=telegram_id, text=message)
 
-@app.post("/cmd-send-payment-link")
-async def cmd_send_payment_link(request: Request):
+@app.post("/text-user")
+async def webhook_text_user(request: Request):
     data = await request.json()
+    asyncio.create_task(text_user(data))
+    return {"ok": 200}
+
+async def cmd_send_payment_link(data):
     url = data["url"]
     telegram_id = data["telegram_id"]
     conn = get_connection()
@@ -137,9 +143,13 @@ async def cmd_send_payment_link(request: Request):
     await bot.send_message(chat_id=telegram_id, text=MESSAGES["payment_link"].format(url=url))
     return ({"status": "sent", "payment_link": url})
 
-@app.post("/stop-sub")
-async def stop_subscription(request: Request):
+@app.post("/cmd-send-payment-link")
+async def webhook_cmd_send_payment_link(request: Request):
     data = await request.json()
+    asyncio.create_task(cmd_send_payment_link(data))
+    return {"ok": 200}
+
+async def stop_subscription(data):
     telegram_id = data["telegram_id"]
     conn = get_connection()
     lang = get_language_by_tg_id(conn, telegram_id) or "en"
@@ -154,6 +164,12 @@ async def stop_subscription(request: Request):
         user_id= telegram_id,
         only_if_banned=True
     )
+
+@app.post("/stop-sub")
+async def webhook_stop_subscription(request: Request):
+    data = await request.json()
+    asyncio.create_task(stop_subscription(data))
+    return {"ok": 200}
 # -----------------------
 # Aiogram Handlers
 # -----------------------
@@ -206,7 +222,3 @@ async def cmd_stop_subscription(message: types.Message):
         user_id= telegram_id,
         only_if_banned=True
     )
-
-
-
-
