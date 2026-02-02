@@ -176,6 +176,7 @@ async def webhook_stop_subscription(request: Request):
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):
+    logging.info("Натиснуто кнопку старт")
     lang = message.from_user.language_code or "en"
     conn = get_connection()
     set_language(conn, lang, message.from_user.id)
