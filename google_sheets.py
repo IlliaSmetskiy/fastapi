@@ -7,15 +7,13 @@ from dotenv import load_dotenv
 load_dotenv() 
 
 def authenticate_google_sheets():
-    creds = json.loads(os.getenv("GOOGLE_CREDENTIALS_JSON"))
-    credentials = Credentials.from_service_account_info(
-        creds,
-        scopes=["https://www.googleapis.com/auth/spreadsheets.readonly"]
-    )
+    creds = json.loads(os.environ["GOOGLE_CREDENTIALS_JSON"])
     scope = [
         'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/drive'
     ]
+    credentials = Credentials.from_service_account_info(creds, scopes=scope)
+    
     """Аутентифікація та створення клієнта Google Sheets"""
     client = gspread.authorize(credentials)
     return client
