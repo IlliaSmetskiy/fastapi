@@ -12,6 +12,8 @@ CREDENTIALS_PATH = os.getenv("CREDENTIALS_PATH")
 
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 
+GOOGLE_CREDENTIALS_JSON = os.getenv("GOOGLE_CREDENTIALS_JSON")
+
 worksheet_names = ["Кандидати"]
 
 NEW_STATE = "Новий"
