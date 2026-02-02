@@ -82,7 +82,7 @@ async def lifespan(app: FastAPI):
     )
     await bot.delete_webhook(drop_pending_updates=True)
     await bot.set_webhook(
-        url=f"{os.environ['RAILWAY_PRIVATE_DOMAIN']}/telegram/webhook"
+        url=f"{os.environ['RAILWAY_DOMAIN']}/telegram/webhook"
     )
     global background_tasks_started
 
