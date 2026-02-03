@@ -17,7 +17,7 @@ def get_connection():
             database=os.getenv("MYSQLDATABASE"),
         )
     except Exception:
-        logging.info(host, port, user)
+        logging.info(os.getenv("MYSQLPORT"))
 
 ALLOWED_FIELDS = {
     "subscription_id",
