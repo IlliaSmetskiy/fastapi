@@ -10,7 +10,6 @@ logging.basicConfig(level=logging.INFO)
 
 def get_connection():
     url = urlparse(os.environ["MYSQL_PUBLIC_URL"])
-    logging.info(f"URL: {url}")
 
     return mysql.connector.connect(
         host=url.hostname,
