@@ -8,16 +8,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 def get_connection():
-    try:
-        mysql.connector.connect(
-            host=os.getenv("MYSQLHOST"),
-            port=int(os.getenv("MY_MYSQLPORT")),
-            user=os.getenv("MYSQLUSER"),
-            password=os.getenv("MYSQLPASSWORD"),
-            database=os.getenv("MYSQLDATABASE"),
-        )
-    except Exception:
-        logging.info(os.getenv("MYSQLPORT"))
+    url = urlparse(os.getenv("MYSQL_PUBLIC_URL"))
+
+    return mysql.connector.connect(
+        host=url.hostname,
+        port=url.port,
+        user=url.username,
+        password=url.password,
+        database=url.path.lstrip("/"),
+    )
 
 ALLOWED_FIELDS = {
     "subscription_id",
