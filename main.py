@@ -24,6 +24,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
+logging.info(dict(os.environ))
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 BACKEND_BASE_URL = os.getenv("BACKEND_BASE_URL")
 
