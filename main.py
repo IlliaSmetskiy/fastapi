@@ -185,7 +185,7 @@ async def cmd_start(message: types.Message):
 async def notify_server(payload, webhook):
     async with httpx.AsyncClient(timeout=30) as client:
         await client.post(
-            f"https://adminGW.pythonanywhere.com/{webhook}",
+            f"https://admingw.pythonanywhere.com/{webhook}",
             json=payload
         )
 
