@@ -2,10 +2,10 @@ import os
 import asyncio
 import httpx
 from aiogram import Bot, Dispatcher, types, F
-from aiogram.types import Update, InlineKeyboardButton, InlineKeyboardMarkup,
+from aiogram.types import (Update, InlineKeyboardButton, InlineKeyboardMarkup,
     CallbackQuery, BotCommand, BotCommandScopeDefault,
     BotCommandScopeAllPrivateChats, BotCommandScopeAllGroupChats,
-    BotCommandScopeAllChatAdministrators
+    BotCommandScopeAllChatAdministrators)
 from aiogram.filters import Command
 from aiogram.client.default import DefaultBotProperties
 from fastapi import FastAPI, Request
