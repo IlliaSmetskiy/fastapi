@@ -133,7 +133,7 @@ async def text_user(data):
     finally:
         conn.close()
     if mode == "checkout_session_is_pending":
-        button = [[InlineKeyboardButton(text=MESSAGES['generate_payment_link_anyway'][lang], callback_data="generate_payment_link_anyway")]]
+        button = [[InlineKeyboardButton(text=MESSAGES['generate_anyway_button'][lang], callback_data="generate_payment_link_anyway")]]
         markup=InlineKeyboardMarkup(inline_keyboard=button)
         message = MESSAGES[mode][lang]
         await bot.send_message(chat_id=telegram_id, text=message, reply_markup=markup)
