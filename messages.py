@@ -25,15 +25,15 @@ MESSAGES = {
     },
     
     "payment_link": {
-        "uk": "Ваше посилання на оплату:\n{url}",
-        "en": "Your payment link:\n{url}",
-        "ru": "Ваша ссылка на оплату:\n{url}",
+        "uk": "Ваше посилання на оплату: <a href='{url}'>Оплатити підписку</a>",
+        "en": "Your payment link: <a href='{url}'>Pay for the subscription</a>",
+        "ru": "Ваша ссылка на оплату: <a href='{url}'>Оплатить подписку</a>",
     },
 
     "invite_link": {
-        "uk": "Готово! Ваше запрошувальне посилання на канал:\n{url}",
-        "en": "All done! You invite link to the channel:\n{url}",
-        "ru": "Готово! Ваше приглошение на канал:\n{url}",
+        "uk": "Готово! Ваше запрошувальне посилання на канал: <a href='{url}'>Підписатися на канал</a>",
+        "en": "All done! You invite link to the channel: <a href='{url}'>Subscribe to the channel</a>",
+        "ru": "Готово! Ваше приглашение на канал: <a href='{url}'>Подписаться на канал</a>",
     },
 
     # ===== SUBSCRIPTIONS =====

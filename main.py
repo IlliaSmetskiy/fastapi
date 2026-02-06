@@ -8,6 +8,7 @@ from aiogram.types import (Update, InlineKeyboardButton, InlineKeyboardMarkup,
     BotCommandScopeAllChatAdministrators)
 from aiogram.filters import Command
 from aiogram.client.default import DefaultBotProperties
+from aiogram.utils.formatting import Url
 from fastapi import FastAPI, Request
 import logging
 import time
@@ -127,7 +128,7 @@ async def send_invite(data):
     finally:
         conn.close()
     logging.info("Інвайт посилання створено")
-    await bot.send_message(chat_id=telegram_id, text=MESSAGES["invite_link"][lang])
+    await bot.send_message(chat_id=telegram_id, text=MESSAGES["invite_link"][lang].format(url=url))
     logging.info("Інвайт посилання надіслано")
     return ({"status": "sent", "invite_link": url})
 
