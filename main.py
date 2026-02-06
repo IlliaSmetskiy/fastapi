@@ -240,7 +240,7 @@ async def cmd_language(message: types.Message):
     markup =  InlineKeyboardMarkup(inline_keyboard=keyboard)
     await message.answer(text=MESSAGES["language"][lang], reply_markup=markup)
 
-@router.callback_query(F.data in ["uk", "en", "ru"])
+@router.callback_query(F.data.in_({"uk", "en", "ru"}))
 async def user_set_language(callback: CallbackQuery):
     await callback.answer()
     lang = callback.data
