@@ -88,6 +88,7 @@ async def lifespan(app: FastAPI):
     await bot.set_my_commands(
         commands=[
             BotCommand(command="subscribe", description="Subscribe to the channel WorkersEU"),
+            BotCommand(command="language", description="Change language"),
         ],
         scope=BotCommandScopeDefault()
     )
@@ -223,8 +224,38 @@ async def notify_server(payload, webhook):
             f"https://admingw.pythonanywhere.com/{webhook}",
             json=payload
         )
+
+@router.message(Command("language"))
+async def cmd_language(message: types.Message):
+    logging.info("Натиснуто кнопку language")
+    conn = get_connection()
+    telegram_id = message.from_user.id
+    try:
+        lang = get_language_by_tg_id(conn, telegram_id) or "en"
+    finally:
+        conn.close()
+    keyboard = [[InlineKeyboardButton(text="Українська", callback_data="uk")],
+                [InlineKeyboardButton(text="English", callback_data="en")],
+                [InlineKeyboardButton(text="Русский", callback_data="ru")]]
+    markup =  InlineKeyboardMarkup(inline_keyboard=keyboard)
+    await message.answer(text=MESSAGES["language"][lang], reply_markup=markup)
+
+@router.callback_query(F.data in ["uk", "en", "ru"])
+async def user_set_language(callback: CallbackQuery):
+    await callback.answer()
+    lang = callback.data
+    await callback.message.edit_reply_markup(reply_markup=None)
+    telegram_id = callback.from_user.id
+    conn = get_connection()
+    try:
+        set_language(conn, lang, telegram_id)
+    finally:
+        conn.close()
+    await bot.send_message(chat_id=telegram_id, text=MESSAGES["lang_changed"][lang])
+
 @router.callback_query(F.data == "generate_payment_link_anyway")
 async def generate_link_anyway(callback: CallbackQuery):
+    await callback.answer()
     await callback.message.edit_reply_markup(reply_markup=None)
     logging.info("Got Callback")
     telegram_id = callback.from_user.id
