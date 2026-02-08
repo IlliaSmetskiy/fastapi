@@ -284,12 +284,19 @@ async def generate_link_anyway(callback: CallbackQuery):
 
 @router.message(Command("subscribe"))
 async def cmd_subscribe(message: types.Message, allow_new_payment=False):
-    conn = get_connection()
     telegram_id = message.from_user.id
+    conn = get_connection()
     try:
         lang = get_language_by_tg_id(conn, telegram_id) or "en"
     finally:
         conn.close()
+
+    member = await bot.get_chat_member(CHANNEL_ID, telegram_id)
+    if member and member.status in ("member", "administrator", "creator"):
+        await bot.send_message(chat_id=telegram_id, text=MESSAGES["subscription_is_already_active"][lang])
+        logging.info(f"User {telegram_id} already has a subscription")
+        return
+
     asyncio.create_task(
         notify_server({
             "telegram_id": telegram_id,
