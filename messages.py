@@ -45,9 +45,9 @@ MESSAGES = {
     },
 
     "subscription_stopped": {
-        "uk": "Ви успішно відписались від каналу. Шкода, що ви пішли — повертайтесь!",
+        "uk": "Ви успішно відмінили підписку. Шкода, що ви пішли — повертайтесь!",
         "en": "Your subscription has been successfully stopped. We’ll be happy to see you again!",
-        "ru": "Вы успешно отписались от канала. Жаль, возвращайтесь!",
+        "ru": "Вы успешно отменили подписку. Жаль, возвращайтесь!",
     },
 
     "subscription_stop_error": {
