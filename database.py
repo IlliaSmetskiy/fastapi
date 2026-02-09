@@ -37,7 +37,7 @@ def set_language(conn, lang, tg_id):
 
             if cur.rowcount == 0:
                 sql = """
-                    INSERT INTO users (telegram_id, language)
+                    INSERT INTO users (language, telegram_id)
                     VALUES (%s, %s)
                 """
                 cur.execute(sql, (lang, tg_id))
