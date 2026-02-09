@@ -39,6 +39,8 @@ def set_language(conn, lang, tg_id):
                 sql = """
                     INSERT INTO users (language, telegram_id)
                     VALUES (%s, %s)
+                    ON DUPLICATE KEY UPDATE
+                    language = VALUES(language)
                 """
                 cur.execute(sql, (lang, tg_id))
             conn.commit()
