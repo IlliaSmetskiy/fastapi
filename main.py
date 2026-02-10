@@ -329,7 +329,7 @@ async def save_text(message: types.Message, state: FSMContext):
     lang = await get_language_from_db(telegram_id)
 
     data = await state.get_data()
-    post_text = str(data)
+    post_text = str(data.get("waiting_for_text", ""))
 
     if not post_text:
         await message.answer(text=MESSAGES["no_post_info_id_send"][lang])
