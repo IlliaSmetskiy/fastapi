@@ -1,17 +1,29 @@
 MESSAGES = {
     # ===== GENERAL =====
     "start": {
-        "uk": "/subscribe - Підписатися на канал\n"
+        "uk": "Канал WorkersEU пропонує контакти спеціалістів, що готові працювати на ваших об'єктах в Європі. "
+              "Цей бот допоможе вам отримати доступ до каналу або запостити своє резюме. "
+              "Нижче - перелік команд, що вам знадобляться\n\n"
+              "/subscribe - Підписатися на канал\n"
+              "/post - Опублікувати свою анкету в каналі\n"
               "/language - Змінити мову\n"
               "/manage_subscription - Керувати підпискою\n"
               "/help - Список команд\n"
               "Лишилися питання? - Пиши @illia_gw",
-        "en": "/subscribe - Subscribe to the channel\n"
+        "en": "The WorkersEU channel provides contacts of specialists ready to work at your sites across Europe. "
+              "This bot will help you get access to the channel or publish your resume. "
+              "Below is the list of commands you may need\n\n"
+              "/subscribe - Subscribe to the channel\n"
+              "/post - Publish your profile in the channel\n"
               "/language - Change language\n"
               "/manage_subscription - Manage subscription\n"
               "/help - List of commands\n"
               "Any questions left? - Contact @illia_gw",
-        "ru": "/subscribe - Подписаться на канал\n"
+        "ru": "Канал WorkersEU предлагает контакты специалистов, готовых работать на ваших объектах в Европе. "
+              "Этот бот поможет вам получить доступ к каналу или опубликовать своё резюме. "
+              "Ниже — список команд, которые вам понадобятся\n\n"
+              "/subscribe - Подписаться на канал\n"
+              "/post - Опубликовать свою анкету в канале\n"
               "/language - Сменить язык\n"
               "/manage_subscription - Управление подпиской\n"
               "/help - Список команд\n"
@@ -20,16 +32,19 @@ MESSAGES = {
 
     "help": {
         "uk": "/subscribe - Підписатися на канал\n"
+              "/post - Опублікувати свою анкету в каналі\n"
               "/language - Змінити мову\n"
               "/manage_subscription - Керувати підпискою\n"
               "/help - Список команд\n"
               "Лишилися питання? - Пиши @illia_gw",
         "en": "/subscribe - Subscribe to the channel\n"
+              "/post - Publish your profile in the channel\n"
               "/language - Change language\n"
               "/manage_subscription - Manage subscription\n"
               "/help - List of commands\n"
               "Any questions left? - Contact @illia_gw",
         "ru": "/subscribe - Подписаться на канал\n"
+              "/post - Опубликовать свою анкету в канале\n"
               "/language - Сменить язык\n"
               "/manage_subscription - Управление подпиской\n"
               "/help - Список команд\n"

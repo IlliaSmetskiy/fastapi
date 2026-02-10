@@ -19,7 +19,7 @@ import time
 from contextlib import asynccontextmanager
 from database import get_connection
 from google_sheets import authenticate_google_sheets, fetch_sheet_data
-from config import format_message, CHANNEL_ID, RAILWAY_DOMAIN, CUSTOMER_PORTAL_URL
+from config import format_message, CHANNEL_ID, RAILWAY_DOMAIN, CUSTOMER_PORTAL_URL, ADMIN_ID
 from messages import MESSAGES
 # from Stripe_hosted.bot.middlewares.i18n import MyI18nMiddleware, i18n
 from database import get_language_by_tg_id, set_language

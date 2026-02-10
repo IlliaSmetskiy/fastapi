@@ -20,6 +20,9 @@ CUSTOMER_PORTAL_URL = os.getenv("CUSTOMER_PORTAL_URL")
 
 worksheet_names = ["Кандидати"]
 
+ADMIN_ID = os.getenv("ADMIN_ID")
+
+
 NEW_STATE = "Новий"
 def format_message(row):
     f"""
