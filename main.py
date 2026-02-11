@@ -146,7 +146,7 @@ async def send_invite(data):
     lang = await get_language_from_db(telegram_id)
     logging.info("Інвайт посилання створено")
     logging.info(expire_ts)
-    await bot.send_message(chat_id=telegram_id, text=MESSAGES["invite_link"][lang].format(url=url))
+    await bot.send_message(chat_id=telegram_id, text=MESSAGES["invite_link"][lang].format(url=url) + url)
     logging.info("Інвайт посилання надіслано")
     return ({"status": "sent", "invite_link": url})
 
