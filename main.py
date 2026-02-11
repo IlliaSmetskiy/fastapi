@@ -1,13 +1,14 @@
 import os
 import asyncio
 import httpx
-import aiogram
 from aiogram import Bot, Dispatcher, types, F, Router
 from aiogram.fsm.context import FSMContext
 from aiogram.types import (Update, InlineKeyboardButton, InlineKeyboardMarkup,
     CallbackQuery, BotCommand, BotCommandScopeDefault,
     BotCommandScopeAllPrivateChats, BotCommandScopeAllGroupChats,
-    BotCommandScopeAllChatAdministrators, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove)
+    BotCommandScopeAllChatAdministrators, BotCommandScopeChat,
+    ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove)
+
 from aiogram.filters import Command
 from aiogram.client.default import DefaultBotProperties
 from aiogram.exceptions import TelegramBadRequest
@@ -104,6 +105,12 @@ async def lifespan(app: FastAPI):
             BotCommand(command="post", description="Post your profile"),
         ],
         scope=BotCommandScopeDefault()
+    )
+    await bot.set_my_commands(
+        commands=[
+            BotCommand(command="admin_post", description="Verifying the candidate's form and posting it"),
+        ],
+        scope=BotCommandScopeChat(chat_id=ADMIN_ID)
     )
     global background_tasks_started
 
@@ -330,6 +337,7 @@ async def save_text(message: types.Message, state: FSMContext):
 
     data = await state.get_data()
     post_text = str(data.get("waiting_for_text", ""))
+    post_text = "📗 Анкета від користувача\n" + post_text + "\n" + "Від користувача:\n" + str(telegram_id)
 
     if not post_text:
         await message.answer(text=MESSAGES["no_post_info_id_send"][lang])
@@ -337,6 +345,11 @@ async def save_text(message: types.Message, state: FSMContext):
     await message.answer(text=MESSAGES["form_is_under_revision"][lang], reply_markup=ReplyKeyboardRemove())
     await state.clear()
     await bot.send_message(chat_id=ADMIN_ID, text=post_text)
+
+
+# @router.message(Command("admin_post"), F.from_user.id == ADMIN_ID) #maybe for future
+# async def cmd_admin_post(message: types.Message):
+
 
 # @router.message(PostForm.waiting_for_text, F.text.in_(["Опублікувати", "Publish", "Опубликовать"]))
 # async def send_post_text_to_admin(message: types.Message, state: FSMContext):
