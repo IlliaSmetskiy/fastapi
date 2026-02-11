@@ -64,6 +64,7 @@ async def daily_post_candidates(worksheet: str, interval_hours: int = 24):
 
         # чекаємо 24 години (НЕ блокує loop)
         await asyncio.sleep(interval_hours * 60 * 60)
+
 async def get_language_from_db(telegram_id):
     conn = get_connection()
     try:
@@ -71,6 +72,7 @@ async def get_language_from_db(telegram_id):
     finally:
         conn.close()
     return lang
+
 # -----------------------
 # BOT
 # -----------------------
@@ -81,6 +83,9 @@ router = Router()
 dp.include_router(router)
 # dp.message.middleware(MyI18nMiddleware(i18n))
 
+async def is_user_banned(chat_id, user_id):
+    member = await bot.get_chat_member(chat_id, user_id)
+    return member.status == "kicked"
 
 # -----------------------
 # FASTAPI SERVER
@@ -139,13 +144,16 @@ async def telegram_webhook(update: dict):
 async def send_invite(data):
     expire_ts = data["expire_ts"]
     telegram_id = data["telegram_id"]
+    lang = await get_language_from_db(telegram_id)
+    if is_user_banned(CHANNEL_ID, telegram_id):
+        await bot.send_message(chat_id=telegram_id, text=MESSAGES["you_are_banned"][lang])
+        return
     invite = await bot.create_chat_invite_link( chat_id=CHANNEL_ID,
                                                 member_limit=1 )
     url = invite.invite_link
-    lang = await get_language_from_db(telegram_id)
     logging.info("Інвайт посилання створено")
     logging.info(expire_ts)
-    await bot.send_message(chat_id=telegram_id, text=MESSAGES["invite_link"][lang].format(url=url) + url)
+    await bot.send_message(chat_id=telegram_id, text=MESSAGES["invite_link"][lang].format(url=url))
     logging.info("Інвайт посилання надіслано")
     return ({"status": "sent", "invite_link": url})
 

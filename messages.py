@@ -105,6 +105,12 @@ MESSAGES = {
         "ru": "Пожалуйста, отправьте заполненую форму",
     },
 
+    "you_are_banned": {
+        "uk": "❌ Ви не можете знову підписатися, так як ви у бані. Якщо це помилка, напишіть адміну @illia_gw",
+        "en": "❌ Вы не можете снова подписаться, так как находитесь в бане. Если это ошибка, напишите администратору @illia_gw",
+        "ru": "❌ You cannot subscribe again because you are banned. If this is a mistake, contact the admin @illia_gw",
+    },
+
     "form_is_under_revision": {
         "uk": "Анкета відправлена на перевірку, дякую!",
         "en": "Your form is being checked by moderators, thank you for applying!",
