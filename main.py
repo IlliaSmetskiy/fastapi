@@ -146,7 +146,8 @@ async def send_invite(data):
     expire_ts = data["expire_ts"]
     telegram_id = data["telegram_id"]
     lang = await get_language_from_db(telegram_id)
-    if is_user_banned(CHANNEL_ID, telegram_id):
+    is_banned = await is_user_banned(CHANNEL_ID, telegram_id)
+    if is_banned:
         await bot.send_message(chat_id=telegram_id, text=MESSAGES["you_are_banned"][lang])
         return
     invite = await bot.create_chat_invite_link( chat_id=CHANNEL_ID,
